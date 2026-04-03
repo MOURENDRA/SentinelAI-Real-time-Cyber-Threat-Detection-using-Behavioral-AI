@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SentinelAI | Real-time Cyber Threat Detection</title>
+    <meta
+      name="description"
+      content="SentinelAI is a clean, interactive cybersecurity dashboard for real-time threat detection using behavioral AI."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Oxanium:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="noise-layer" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark">SAI</div>
+          <div>
+            <p class="eyebrow">Behavioral AI Security Console</p>
+            <h1>SentinelAI</h1>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="status-pill" id="systemStatusPill">
+            <span class="status-dot"></span>
+            <span id="systemStatusText">System Active</span>
+          </span>
+
+          <nav class="main-nav" aria-label="Primary navigation">
+            <button class="nav-link" type="button" data-scroll-target="dashboardSection">
+              Dashboard
+            </button>
+            <button class="nav-link" type="button" data-scroll-target="monitoringSection">
+              Monitoring
+            </button>
+            <button class="nav-link" type="button" data-scroll-target="timelineSection">
+              Timeline
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main class="dashboard-stack">
+        <section class="summary-shell" id="dashboardSection">
+          <article class="panel summary-panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-label">Main Dashboard</p>
+                <h2>Real-time cyber threat overview</h2>
+              </div>
+              <span class="panel-chip">System Active</span>
+            </div>
+
+            <p class="panel-copy">
+              SentinelAI monitors user and system behavior, detects suspicious
+              patterns, and surfaces anomalies in a clear product-style demo
+              that feels like a working cybersecurity tool.
+            </p>
+
+            <div class="overview-grid">
+              <article class="stat-card">
+                <p>Total Threats Detected</p>
+                <strong id="threatCount">24</strong>
+                <span>Behavioral anomalies confirmed by AI</span>
+              </article>
+              <article class="stat-card">
+                <p>Active Alerts</p>
+                <strong id="alertCount">7</strong>
+                <span>Warnings and critical incidents in review</span>
+              </article>
+              <article class="stat-card">
+                <p>System Health</p>
+                <strong id="healthCount">97%</strong>
+                <span>Protected services operating within tolerance</span>
+              </article>
+              <article class="stat-card">
+                <p>Monitored Endpoints</p>
+                <strong id="endpointCount">128</strong>
+                <span>Users, devices, and gateways under watch</span>
+              </article>
+            </div>
+
+            <div class="signal-grid" id="signalGrid" aria-label="Live protection map"></div>
+          </article>
+
+          <aside class="panel control-panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-label">Control Panel</p>
+                <h2>Simulation controls</h2>
+              </div>
+            </div>
+
+            <div class="control-actions">
+              <button id="startMonitoringButton" class="button button-primary" type="button">
+                Start Monitoring
+              </button>
+              <button id="stopMonitoringButton" class="button button-secondary" type="button">
+                Stop Monitoring
+              </button>
+              <button id="clearLogsButton" class="button button-ghost" type="button">
+                Clear Logs
+              </button>
+            </div>
+
+            <div class="control-readout">
+              <article class="readout-card">
+                <p>Console Mode</p>
+                <strong id="controlState">Monitoring Live</strong>
+                <span id="controlStateMeta">Behavioral models are actively scoring events.</span>
+              </article>
+              <article class="readout-card">
+                <p>AI Confidence</p>
+                <strong id="confidenceValue">94%</strong>
+                <span>Behavioral baseline scoring remains stable.</span>
+              </article>
+              <article class="readout-card">
+                <p>Response Latency</p>
+                <strong id="latencyValue">0.43s</strong>
+                <span>Alert routing performance under simulated load.</span>
+              </article>
+            </div>
+          </aside>
+        </section>
+
+        <section class="monitor-shell" id="monitoringSection">
+          <article class="panel monitor-panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-label">Live Monitoring Panel</p>
+                <h2>Dynamic threat detection stream</h2>
+              </div>
+              <span class="panel-chip">Real-time Logs</span>
+            </div>
+
+            <div class="mini-stats">
+              <article class="mini-stat">
+                <p>Suspicious Logins</p>
+                <strong id="suspiciousCount">0</strong>
+              </article>
+              <article class="mini-stat">
+                <p>Unusual Activity</p>
+                <strong id="activityCount">0</strong>
+              </article>
+              <article class="mini-stat">
+                <p>Critical Events</p>
+                <strong id="criticalCount">0</strong>
+              </article>
+            </div>
+
+            <div class="log-feed" id="logFeed" aria-live="polite"></div>
+          </article>
+
+          <div class="monitor-side">
+            <article class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Incident Focus</p>
+                  <h2>Current alert</h2>
+                </div>
+              </div>
+              <div class="incident-card" id="incidentCard"></div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <div>
+                  <p class="panel-label">Response Queue</p>
+                  <h2>Next actions</h2>
+                </div>
+              </div>
+              <div class="queue-list" id="queueList"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="two-column-shell">
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-label">Behavioral AI Explanation</p>
+                <h2>How the system works</h2>
+              </div>
+              <span class="panel-chip">3 Steps</span>
+            </div>
+
+            <div class="step-grid" id="stepGrid"></div>
+
+            <div class="detail-box">
+              <p class="detail-label" id="stepStageLabel">Step 1</p>
+              <h3 id="stepTitle">Collect Data</h3>
+              <p id="stepDescription"></p>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-label">Features Panel</p>
+                <h2>System modules</h2>
+              </div>
+              <span class="panel-chip">Core Engines</span>
+            </div>
+
+            <div class="module-grid" id="moduleGrid"></div>
+
+            <div class="detail-box">
+              <p class="detail-label" id="moduleStatus">Module Live</p>
+              <h3 id="moduleTitle">Real-time Detection Engine</h3>
+              <p id="moduleDescription"></p>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel timeline-panel" id="timelineSection">
+          <div class="panel-header">
+            <div>
+              <p class="panel-label">Hackathon Timeline</p>
+              <h2>Build progress by round</h2>
+            </div>
+            <span class="panel-chip">Day 1 / Day 2</span>
+          </div>
+
+          <div class="timeline-grid" id="timelineGrid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
